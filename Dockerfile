@@ -14,7 +14,7 @@
 # PLAY RECAP ******************************************************************************************************************
 # localhost                  : ok=8    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
-FROM python:3
+FROM python:3.7
 
 # We copy just the requirements.txt first to leverage Docker cache
 COPY ./requirements.txt /app/requirements.txt
