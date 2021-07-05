@@ -18,3 +18,6 @@ docker run -v URI_MY_PROJ_SERVICE_ACCOUNT_JSON:/app-pb/res/my-project-serviceacc
 </code></pre>
 
 URI_MY_PROJ_SERVICE_ACCOUNT_JSON can be a uri of the google cloud service account credential in json format (ex: ~/.mycredential/my-project-serviceaccount.json). Note that IAM user should have "Kubernetes Engune Admin" permission.
+
+## Note
+You might need to modify pb/vars/gcp_k8s_pubsub.vars.yml per your Google Cloud Project configuration.
