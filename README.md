@@ -14,5 +14,7 @@ docker build --tag solaceansibletest:0.4 .
 
 ## Run
 <pre><code>
-docker run -v <URI_MY_Proj_ServiceAccount>:/app-pb/res/my-project-serviceaccount.json -p 5000:5000 -it solaceansibletest:0.4
+docker run -v URI_MY_PROJ_SERVICE_ACCOUNT_JSON:/app-pb/res/my-project-serviceaccount.json -p 5000:5000 -it solaceansibletest:0.4
 </code></pre>
+
+URI_MY_PROJ_SERVICE_ACCOUNT_JSON can be a uri of the google cloud service account credential in json format (ex: ~/.mycredential/my-project-serviceaccount.json). Note that IAM user should have "Kubernetes Engune Admin" permission.
