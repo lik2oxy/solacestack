@@ -1,0 +1,30 @@
+---
+  - name: "HA setup"
+    hosts: localhost
+    any_errors_fatal: true
+
+    pre_tasks:
+    - include_vars:
+        file: "vars/gcp_k8s_pubsub.vars.yml"
+
+    tasks:
+        - name: "Solace Helm Chart Repo add"
+          kubernetes.core.helm_repository:
+            name: "solacecharts"
+            repo_url: "https://solaceproducts.github.io/pubsubplus-kubernetes-quickstart/helm-charts"
+
+        - name: "Helm Chart Install"
+          kubernetes.core.helm:
+            name: "{{ pubsub_name }}"
+            release_namespace: "{{ k8s_namespace_name }}"
+            create_namespace: true
+            chart_ref: solacecharts/pubsubplus-ha
+            atomic: true
+            wait: true
+            values:
+              solace:
+                usernameAdminPassword: "{{ pubsub_admin_pw }}"
+              
+        - name: "Show IP of the svc"
+          shell: "kubectl get svc --namespace {{ k8s_namespace_name }} {{ pubsub_name }}-pubsubplus-ha"
+

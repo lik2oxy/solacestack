@@ -1,0 +1,13 @@
+---
+  - name: "Cloud API Auth"
+    hosts: localhost
+    any_errors_fatal: true    
+
+    pre_tasks:
+    - include_vars:
+        file: "vars/gcp_k8s_pubsub.vars.yml"
+
+    tasks:
+        - name: "Authenticate using serviceaccount credential file"
+          shell: "gcloud auth activate-service-account --key-file {{ gcp_cluster_service_account_file }}"
+

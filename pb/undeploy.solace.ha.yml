@@ -1,0 +1,16 @@
+---
+  - name: "HA delete"
+    hosts: localhost
+    any_errors_fatal: true
+
+    pre_tasks:
+    - include_vars:
+        file: "vars/gcp_k8s_pubsub.vars.yml"
+
+    tasks:
+        - name: "Helm Chart Delete"
+          kubernetes.core.helm:
+            name: "{{ pubsub_name }}"
+            release_namespace: "{{ k8s_namespace_name }}"
+            state: absent
+            wait: true

@@ -1,0 +1,12 @@
+---
+  gcp_cluster_name: ansible-gcp-appmo-ambush
+  gcp_cluster_location: asia-southeast1
+  gcp_cluster_project: capable-stream-180018
+  gcp_cluster_service_account_file: res/my-project-serviceaccount.json
+  gcp_cluster_disk_gb: 100
+  gcp_cluster_machine_type: n1-standard-4
+
+  k8s_namespace_name: ansible-test-namespace
+
+  pubsub_name: pubsubtestha
+  pubsub_admin_pw: admin
