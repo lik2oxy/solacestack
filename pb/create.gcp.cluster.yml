@@ -1,0 +1,43 @@
+---
+  - name: "Cluster setup"
+    hosts: localhost
+    any_errors_fatal: true    
+
+    pre_tasks:
+    - include_vars:
+        file: "vars/gcp_k8s_pubsub.vars.yml"
+
+    tasks:
+        - name: "create a cluster"
+          google.cloud.gcp_container_cluster:
+            name: "{{ gcp_cluster_name }}"
+            initial_node_count: 1
+            node_config:
+              machine_type: "{{ gcp_cluster_machine_type }}"
+              image_type: UBUNTU
+              disk_size_gb: "{{ gcp_cluster_disk_gb }}"
+            location: "{{ gcp_cluster_location }}"          
+            project: "{{ gcp_cluster_project }}" 
+            auth_kind: serviceaccount 
+            service_account_file: "{{ gcp_cluster_service_account_file }}" 
+            state: present
+          register: cluster
+ 
+        - name: "create k8s node pool"
+          google.cloud.gcp_container_node_pool:
+            name: "node-pool-{{ gcp_cluster_name }}"
+            initial_node_count: 1
+            cluster: "{{ cluster }}"
+            config:
+              machine_type: "{{ gcp_cluster_machine_type }}" 
+              image_type: UBUNTU
+              disk_size_gb: "{{ gcp_cluster_disk_gb }}"
+            location: "{{ gcp_cluster_location }}"
+            project: "{{ gcp_cluster_project }}"
+            auth_kind: serviceaccount 
+            service_account_file: "{{ gcp_cluster_service_account_file }}" 
+            state: present
+
+        - name: "Connect to cluster (update kubeconfig)"
+          shell: "gcloud container clusters get-credentials {{ gcp_cluster_name }} --zone {{ gcp_cluster_location }} --project {{ gcp_cluster_project }}"
+
