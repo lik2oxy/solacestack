@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html {
+            font-size: 62.5%;
+        }
+
+        body {
+            font-size: 1em;
+            background-color: #000000;
+            padding-top: 70px;
+            padding-bottom: 20px;
+        }
+
+        .button {
+            background-color: #333333;
+            color: #00CB95;
+            border: 2px solid #CCCCCC;
+            /* border-radius: 12px; */
+        }
+
+        .panel-heading {
+            color: #EEEEEE;
+            background: #777777;
+        }
+
+        .panel-body {
+            color: #333333;
+            background: #EEEEEE;
+        }
+
+        @media (max-width: 300px) {
+            html {
+                font-size: 70%;
+            }
+        }
+
+        @media (min-width: 400px) {
+            html {
+                font-size: 80%;
+            }
+        }
+
+        @media (min-width: 700px) {
+            html {
+                font-size: 120%;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            html {
+                font-size: 140%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href='https://www.solace.com/' alt='Solace'><img src='https://cdn.solace.com/wp-content/themes/orbit-media/resources/images/solace-logo-green-home.png' /></a>
+                </div>
+                <div class="col-xs-12">
+                    &nbsp;
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                <b>Where do you want to run Solace today?</b>
+                </div>
+                <div class="panel-body">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>
