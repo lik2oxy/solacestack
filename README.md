@@ -17,7 +17,7 @@ docker build --tag solaceansibletest:0.4 .
 docker run -v URI_MY_PROJ_SERVICE_ACCOUNT_JSON:/app-pb/res/my-project-serviceaccount.json -p 5000:5000 -it solaceansibletest:0.4
 </code></pre>
 
-URI_MY_PROJ_SERVICE_ACCOUNT_JSON can be a uri of the google cloud service account credential in json format (ex: ~/.mycredential/my-project-serviceaccount.json). Note that IAM user should have "Kubernetes Engune Admin" permission.
+URI_MY_PROJ_SERVICE_ACCOUNT_JSON is the absolute path of the google cloud service account credential in json format (ex: /home/hyoon/.mycredential/my-project-serviceaccount.json). Note that IAM user should have 1) "Kubernetes Engune Admin" and "Service Account User" permissions. 
 
 ## Note
 You might need to modify pb/vars/gcp_k8s_pubsub.vars.yml per your Google Cloud Project configuration.

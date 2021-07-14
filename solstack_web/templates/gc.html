@@ -3,12 +3,25 @@
 
 {% block content %}
 <form action="#" method="POST">
-    <p>Action: </p>
-    <p><input type="radio" name="action" id="create-deploy" value="create-deploy"><label for="deploy">Cluster Creation/HA Deploy</label></p>
+    <fieldset>
+    <legend>Action:</legend>
+    <p><input type="radio" name="action" id="create-deploy" value="create-deploy" checked><label for="deploy">Cluster Creation/HA Deploy</label></p>
     <p><input type="radio" name="action" id="undeploy-destroy" value="undeploy-destroy"><label for="undeploy">HA Undeploy/Cluster Destroy</label></p>
-    <p>Configurations: </p>
-    <p>Cluster Name: <input type="text" name="clustername" /></p>
-    <p>Admin Password: <input type="text" name="adminpw" /></p>
+    </fieldset>
+    <fieldset>
+    <legend>Configurations: </legend>
+    <p>Region: <select name="clusterlocation"> 
+                <option value="asia-southeast1">asia-southeast1</option>
+                <option value="australia-southeast1">australia-southeast1</option>
+                <option value="europe-north1">europe-north1</option>
+                <option value="northamerica-northeast1">northamerica-northeast1</option>
+                <option value="us-central1">us-central1</option>
+               </select>
+    </p>
+    <p>Cluster Name: <input type="text" name="clustername" value="ansible-gcp-appmo-ambush"/></p>
+    <p>Deploy Name: <input type="text" name="deploymentname" value="hellosolaceha"/></p>
+    <p>Solace Admin Password: <input type="text" name="adminpw" value="admin"/></p>
+    </fieldset>
     <p><input type="submit" value="Submit" /></p>
 </form>
 {% endblock %}
