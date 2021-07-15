@@ -16,9 +16,12 @@ def main_page():
 @app.route('/sc', methods=["GET", "POST"])
 def sc_page():
     if request.method == "POST":
-        sctoken = request.form["sctoken"]
-        sc_create(sctoken)
-        return "Done"
+        # token is mandatory - reject if not found
+        if request.form["scToken"] == "":
+            # how to properly tell user token is missing? :)
+            return "It seems you didn't give me the Token, try again?"
+
+        return sc_create(request.form)
     else:
         return render_template("sc.html")
 
@@ -45,11 +48,26 @@ def gc_page():
     else:
         return render_template("gc.html")
 
-def sc_create(token):
-    run_playbook('.', 'ansible-solace/working-with-solace-cloud/playbook.sc-create.yml', {
-            'WORKING_DIR': '.',
-            'SOLACE_CLOUD_API_TOKEN': token
-            })
+def sc_create(reqForms):
+    extVars = { 
+        "WORKING_DIR": ".",
+        "SOLACE_CLOUD_API_TOKEN": reqForms["scToken"],
+        "name": reqForms["name"],
+        "msgVpnName": reqForms["msgVpnName"],
+        "datacenterId": reqForms["datacenterId"],
+        "serviceTypeId": reqForms["serviceTypeId"],
+        "serviceClassId": reqForms["serviceClassId"]
+    }
+    hostAndPlaybackEvent = run_playbook('/app-pb/', '/app-pb/create.sc.svc.yml', extVars)
+    result = "Done! - we'll make a better result later :) XX TODO"
+    # Somehow res is not found or error here 
+    # for ev in hostAndPlaybackEvent.events:
+    #     if 'event_data' in ev and 'task' in ev['event_data'] and ev['event_data']['task']=="Get Solace Cloud Service Inventory":
+    #         res=ev['event_data']['res']
+    #         if 'stdout' in res:
+    #             result=res['stdout'].replace("\n","<br>")
+    return result
+
 def gc_auth():
     run_playbook('/app-pb/', '/app-pb/auth.gcp.gcloud.yml', {})
 

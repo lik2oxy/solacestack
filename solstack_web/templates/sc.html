@@ -3,8 +3,18 @@
 
 {% block content %}
 <form action="#" method="POST">
-    <p>SCToken: </p>
-    <p><input type="text" name="sctoken" /></p>
-    <p><input type="submit" value="Submit" /></p>
+    <label for="name">Service Name: &ensp;</label>
+    <input type="text" id="name" name="name" value="mybroker"><br><br>
+    <label for="msgVpnName">MessageVPN Name: &ensp;</label>
+    <input type="text" id="msgVpnName" name="msgVpnName" value="mybroker"><br><br>
+    <label for="dataCenterId">Data Center ID: &ensp;</label>
+    <input type="text" id="datacenterId" name="datacenterId" value="aws-ap-southeast-1a"><br><br>
+    <label for="serviceTypeId">Service Type ID: &ensp;</label>
+    <input type="text" id="serviceTypeId" name="serviceTypeId" value="developer"><br><br>
+    <label for="serviceClassId">Service Class ID: &ensp;</label>
+    <input type="text" id="serviceClassId" name="serviceClassId" value="developer"><br><br>
+    <label for="scToken">Solace Cloud API Token: &ensp;</label>
+    <input type="text" id="scToken" name="scToken" value=""><br><br>
+    <input type="submit" value="Submit" /><br>
 </form>
 {% endblock %}
