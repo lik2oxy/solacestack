@@ -1,0 +1,23 @@
+---
+name: mybroker
+msgVpnName: mybroker
+datacenterId: "aws-us-east-1a"
+serviceTypeId: "developer"
+serviceClassId: "developer"
+# serviceTypeId: "enterprise"
+# serviceClassId: "enterprise-250-nano"
+attributes:
+  customizedMessagingPorts:
+    serviceSmfPlainTextListenPort: 55555
+    serviceSmfCompressedListenPort: 55003
+    serviceSmfTlsListenPort: 55443
+    serviceAmqpPlainTextListenPort: 5672
+    serviceAmqpTlsListenPort: 5671
+    serviceMqttPlainTextListenPort: 1883
+    serviceMqttTlsListenPort: 8883
+    serviceMqttTlsWebSocketListenPort: 8000
+    serviceMqttWebSocketListenPort: 8443
+    serviceRestIncomingPlainTextListenPort: 9000
+    serviceRestIncomingTlsListenPort: 9443
+    serviceWebPlainTextListenPort: 8008
+    serviceWebTlsListenPort: 1443

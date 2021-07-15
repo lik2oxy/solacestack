@@ -13,8 +13,7 @@ WORKDIR /app
 RUN apt-get update -y \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends docker sshpass vim tar \
     && pip install -r requirements.txt \
-    && ansible-galaxy collection install solace.pubsub_plus google.cloud kubernetes.core \
-    && git clone https://github.com/solace-iot-team/ansible-solace.git
+    && ansible-galaxy collection install solace.pubsub_plus google.cloud kubernetes.core
 
 RUN curl -sSL https://sdk.cloud.google.com > /tmp/gcl && bash /tmp/gcl --install-dir=/root/ --disable-prompts
 ENV PATH="$PATH:/root/google-cloud-sdk/bin"

@@ -1,0 +1,49 @@
+---
+- name: Create Solace Cloud
+  hosts: localhost
+  gather_facts: no
+  any_errors_fatal: true
+  collections:
+    - solace.pubsub_plus
+  pre_tasks:
+    - include_vars:
+        file: "sc_service.vars.yml"
+
+  tasks:
+    - name: "Check vars"
+      assert:
+        that:
+          - SOLACE_CLOUD_API_TOKEN is defined and SOLACE_CLOUD_API_TOKEN | length > 0
+        fail_msg: "SOLACE_CLOUD_API_TOKEN is not defined"
+
+    - name: "Create Solace Cloud Service"
+      solace_cloud_service:
+        api_token: "{{ SOLACE_CLOUD_API_TOKEN }}"
+        name: "{{ name }}"
+        settings:
+          msgVpnName: "{{ msgVpnName}}"
+          datacenterId: "{{ datacenterId }}"
+          serviceTypeId: "{{ serviceTypeId}}"
+          serviceClassId: "{{ serviceClassId }}"
+          attributes: "{{ sc_service.attributes | default(omit) }}"
+        state: present
+      register: result
+
+    - set_fact:
+        sc_service_id: "{{ result.response.serviceId }}"
+        sc_service_info: "{{ result.response }}"
+
+    - name: "Get Solace Cloud Service Inventory"
+      solace_cloud_get_facts:
+        from_dict: "{{ sc_service_info }}"
+        get_formattedHostInventory:
+          host_entry: "{{ svcName }}"
+          api_token: "{{ SOLACE_CLOUD_API_TOKEN }}"
+          meta:
+            service_name: "{{ sc_service_info.name }}"
+            sc_service_id: "{{ sc_service_info.serviceId }}"
+            datacenterId: "{{ sc_service_info.datacenterId }}"
+            serviceTypeId: "{{ sc_service_info.serviceTypeId}}"
+            serviceClassId: "{{ sc_service_info.serviceClassId }}"
+            serviceClassDisplayedAttributes: "{{ sc_service_info.serviceClassDisplayedAttributes }}"
+      register: sc_inventory
