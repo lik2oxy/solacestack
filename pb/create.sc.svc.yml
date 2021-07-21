@@ -37,7 +37,7 @@
       solace_cloud_get_facts:
         from_dict: "{{ sc_service_info }}"
         get_formattedHostInventory:
-          host_entry: "{{ svcName }}"
+          host_entry: "{{ name }}"
           api_token: "{{ SOLACE_CLOUD_API_TOKEN }}"
           meta:
             service_name: "{{ sc_service_info.name }}"
