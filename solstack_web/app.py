@@ -79,13 +79,13 @@ def gc_cluster_create(reqForms):
 
 def gc_ha_deploy(reqForms):
     hostAndPlaybackEvent=run_playbook('/app-pb/', '/app-pb/deploy.solace.ha.yml', toArray(reqForms))
-    # TODO: We should manipulate the output of the command below
-    # kubectl describe service solaceha-pubsubplus-ha -n ansible-test-namespace
     lb_ingress_ip="undefined"
     address="http://"+lb_ingress_ip+":8080"
     
     for ev in hostAndPlaybackEvent.events:
-        if 'event_data' in ev and 'task' in ev['event_data'] and ev['event_data']['task']=="Show IP of the svc":
+        if 'event_data' in ev and 'task' in ev['event_data'] and ev['event_data']['task']=="Show IP of the svc" and 'res' in ev['event_data']:
+            print("detect Show IP of the svc task")
+            print(ev['event_data'])
             res=ev['event_data']['res']
             if 'stdout' in res:
                 address=res['stdout'].replace("\n","<br>")
