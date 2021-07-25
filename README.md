@@ -9,6 +9,7 @@ git clone https://github.com/lik2oxy/solacestack.git
 
 ## Build 
 <pre><code>
+cd solacestack
 docker build --tag solaceansibletest:0.4 .
 </code></pre>
 
